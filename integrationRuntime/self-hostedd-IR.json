@@ -1,0 +1,7 @@
+{
+	"name": "self-hostedd-IR",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "this is test elf hosted IR "
+	}
+}

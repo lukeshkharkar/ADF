@@ -1,0 +1,42 @@
+{
+	"name": "parque_generic",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_Link",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"folderPath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@dataset().folderPath",
+					"type": "Expression"
+				},
+				"fileSystem": "landing2"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "branch_id",
+				"type": "INT32"
+			},
+			{
+				"name": "branch_country",
+				"type": "UTF8"
+			},
+			{
+				"name": "branch_city",
+				"type": "UTF8"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

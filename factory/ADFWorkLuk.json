@@ -1,0 +1,9 @@
+{
+	"name": "ADFWorkLuk",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b2d56e49-c83a-4ee3-9164-5b1af5d8abd0",
+		"tenantId": "f81eb85c-b57d-469a-b338-23b56324e0cb"
+	}
+}

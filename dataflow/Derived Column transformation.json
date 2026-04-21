@@ -1,0 +1,59 @@
+{
+	"name": "Derived Column transformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "derivedSourse",
+						"type": "DatasetReference"
+					},
+					"name": "derived"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "derived",
+						"type": "DatasetReference"
+					},
+					"name": "sinkderived"
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          emp_id as string,",
+				"          name as string,",
+				"          salary as integer,",
+				"          address as string,",
+				"          loc as string,",
+				"          email as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> derived",
+				"derived derive(name = iif(isNull(name),'Unknown',name),",
+				"          salary = iif(isNull(salary),10000,salary),",
+				"          country = upper(address)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          emp_id as string,",
+				"          name as string,",
+				"          salary as string,",
+				"          address as string,",
+				"          loc as string,",
+				"          email as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkderived"
+			]
+		}
+	}
+}

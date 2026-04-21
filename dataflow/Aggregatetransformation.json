@@ -1,0 +1,60 @@
+{
+	"name": "Aggregatetransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "empAggregate",
+						"type": "DatasetReference"
+					},
+					"name": "employeeAggregate"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText7",
+						"type": "DatasetReference"
+					},
+					"name": "sinkAggregateemployee"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregateEmployee"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          emp_id as integer,",
+				"          name as string,",
+				"          salary as integer,",
+				"          address as string,",
+				"          loc as string,",
+				"          email as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> employeeAggregate",
+				"employeeAggregate aggregate(groupBy(address),",
+				"     {emp count} = countAllDistinct(emp_id),",
+				"          {total salery} = sum(salary),",
+				"          {max salary} = max(salary)) ~> aggregateEmployee",
+				"aggregateEmployee sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          emp_id as string,",
+				"          name as string,",
+				"          salary as string,",
+				"          address as string,",
+				"          loc as string,",
+				"          email as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkAggregateemployee"
+			]
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+	"name": "SQL_DB_link",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "lukeshsqlserver2.database.windows.net",
+			"database": "policydatabase",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "lukesh",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDNFOTY3NUQwLUE5MzMtNDFCNS04RDU2LTdENkU5RjRCNkYyOF9hNWI1YThlNS01N2U4LTQzOWMtYWQ1My05OWZjNTgxOTg1MjkiDQp9"
+		}
+	}
+}

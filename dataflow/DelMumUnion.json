@@ -1,0 +1,69 @@
+{
+	"name": "DelMumUnion",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "mumbai",
+						"type": "DatasetReference"
+					},
+					"name": "mumbai"
+				},
+				{
+					"dataset": {
+						"referenceName": "delhi",
+						"type": "DatasetReference"
+					},
+					"name": "delhi"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "delMum",
+						"type": "DatasetReference"
+					},
+					"name": "DelMum"
+				}
+			],
+			"transformations": [
+				{
+					"name": "unionDelMum"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {month } as string,",
+				"          sales as string,",
+				"          profit as string,",
+				"          location as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> mumbai",
+				"source(output(",
+				"          {month } as string,",
+				"          sales as string,",
+				"          profit as string,",
+				"          location as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> delhi",
+				"mumbai, delhi union(byName: true)~> unionDelMum",
+				"unionDelMum sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {month } as string,",
+				"          sales as string,",
+				"          profit as string,",
+				"          location as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> DelMum"
+			]
+		}
+	}
+}
